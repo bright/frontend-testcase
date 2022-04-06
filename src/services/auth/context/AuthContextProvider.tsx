@@ -4,13 +4,9 @@ import { AuthData } from "../types"
 import { AuthContext } from "./context"
 
 const AuthContextProvider: React.FC = ({ children }) => {
-  // const [authData, setAuthData] = useState<AuthData>({
-  //   isAuthenticated: false,
-  //   user: null,
-  // })
   const [authData, setAuthData] = useState<AuthData>({
-    isAuthenticated: true,
-    user: mockedUser,
+    isAuthenticated: false,
+    user: null,
   })
 
   const login = useCallback(() => {
