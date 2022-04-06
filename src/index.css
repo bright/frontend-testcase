@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  height: 100vh;
+  width: 100%;
+}
+
+.modal .wfp--modal-container {
+    min-width: 30%;
+}
+
+@media (max-width: 800px) {
+  .modal .wfp--modal-container {
+    min-width: 90%;
+  }
+}
