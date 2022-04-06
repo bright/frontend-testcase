@@ -41,10 +41,20 @@ const ConfirmButton = styled(Button)`
   background-color: #ffffff;
 `
 
+const PrintButton = styled(ConfirmButton)`
+  margin-top: 15px;
+`
+
+const PrintIcon = styled.span`
+  margin-right: 15px;
+`
+
 export {
   ConfirmButton,
   Container,
   Description,
+  PrintButton,
+  PrintIcon,
   SuccessIconContainer,
   TransactionAmount,
 }

@@ -25,6 +25,10 @@ const TransactionPage = () => {
       <S.TransactionAmount>₿ {basketSum.toFixed(2)}</S.TransactionAmount>
 
       <S.ConfirmButton onClick={onConfirm}>OK</S.ConfirmButton>
+
+      <S.PrintButton>
+        <S.PrintIcon>🖨️</S.PrintIcon>Print receipt
+      </S.PrintButton>
     </S.Container>
   )
 }
