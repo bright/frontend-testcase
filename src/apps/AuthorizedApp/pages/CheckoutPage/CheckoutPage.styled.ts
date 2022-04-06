@@ -45,4 +45,17 @@ const CheckoutButton = styled(Button)`
   margin-bottom: 15px;
 `
 
-export { BalanceValue, CheckoutButton, Container, Description, Header, Symbol }
+const NoMoneyError = styled.div`
+  margin: 10px 0px;
+  color: #ff0000;
+`
+
+export {
+  BalanceValue,
+  CheckoutButton,
+  Container,
+  Description,
+  Header,
+  NoMoneyError,
+  Symbol,
+}

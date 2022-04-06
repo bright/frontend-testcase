@@ -23,6 +23,8 @@ const CheckoutPage = () => {
     pay(basketSum)
   }, [basketSum, navigate, pay])
 
+  const isValid = balanceAfterPayment >= 0
+
   return isBasketEmpty ? (
     <div>
       No items in the basket! Go to&nbsp;
@@ -41,11 +43,17 @@ const CheckoutPage = () => {
       <S.Symbol>-</S.Symbol>
       <S.BalanceValue color="#FF7F01">₿ {basketSum.toFixed(2)}</S.BalanceValue>
       <S.Symbol>=</S.Symbol>
-      <S.BalanceValue color="#FFFFFF">
-        {balanceAfterPayment.toFixed(2)}
+      <S.BalanceValue color={isValid ? "#FFFFFF" : "#FF0000"}>
+        ₿ {balanceAfterPayment.toFixed(2)}
       </S.BalanceValue>
 
-      <S.CheckoutButton onClick={onPay}>CHECK OUT</S.CheckoutButton>
+      {!isValid && (
+        <S.NoMoneyError>You don't have enough money!</S.NoMoneyError>
+      )}
+
+      <S.CheckoutButton onClick={onPay} disabled={!isValid}>
+        CHECK OUT
+      </S.CheckoutButton>
       <Link to="/products">go back</Link>
     </S.Container>
   )

@@ -28,13 +28,21 @@ const BasketContextProvider: React.FC = ({ children }) => {
         const existsInBasket = checkExistsInBasket(product)
         const basketProductToSave = { amount, product }
 
-        return existsInBasket
-          ? prevBasketProducts.map((basketProduct) =>
-              basketProduct.product.id === product.id
-                ? basketProductToSave
-                : basketProduct
-            )
-          : [...prevBasketProducts, basketProductToSave]
+        if (existsInBasket) {
+          return amount === 0
+            ? prevBasketProducts.filter(
+                (basketProduct) => basketProduct.product.id !== product.id
+              )
+            : prevBasketProducts.map((basketProduct) =>
+                basketProduct.product.id === product.id
+                  ? basketProductToSave
+                  : basketProduct
+              )
+        }
+
+        if (amount === 0) return prevBasketProducts
+
+        return [...prevBasketProducts, basketProductToSave]
       })
     },
     [checkExistsInBasket]
