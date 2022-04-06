@@ -1,5 +1,5 @@
 import { Modal, TextInput } from "@wfp/ui"
-import { ChangeEventHandler, useCallback, useState } from "react"
+import { ChangeEventHandler, useCallback, useEffect, useState } from "react"
 import { Button } from "../../../../components/Button"
 import { useBasketContext } from "../../services/basket/context"
 import { Product } from "../../services/products"
@@ -13,23 +13,38 @@ interface Props {
 }
 
 const AddProductModal = ({ product, isOpen, onClose }: Props) => {
-  const { addToBasket } = useBasketContext()
+  const { saveToBasket, getBasketProduct } = useBasketContext()
 
   const [amount, setAmount] = useState<number>(1)
+
+  useEffect(() => {
+    if (!product) {
+      return
+    }
+
+    const basketProduct = getBasketProduct(product)
+    if (basketProduct) {
+      setAmount(basketProduct.amount)
+    }
+  }, [getBasketProduct, product])
 
   const onAmountChange: ChangeEventHandler<TextInput> = (
     event: React.ChangeEvent<TextInput>
   ) => {
     // @ts-ignore
-    setAmount(event.target.value)
+    const value = event.target.value
+
+    const roundedValue = Number(value).toFixed(2)
+    setAmount(Number(roundedValue))
   }
 
   const onSave = useCallback(() => {
     if (!product) return null
 
-    addToBasket(product, amount)
+    saveToBasket(product, amount)
     onClose()
-  }, [addToBasket, amount, onClose, product])
+    setAmount(1.0)
+  }, [saveToBasket, amount, onClose, product])
 
   const sum = amount * (product?.price ?? 0)
 
@@ -55,7 +70,8 @@ const AddProductModal = ({ product, isOpen, onClose }: Props) => {
           <S.AmountRowWraper>
             <S.AmountRow>
               <TextInput
-                type="decimal"
+                // @ts-ignore
+                type="number"
                 name="amount"
                 value={amount}
                 onChange={onAmountChange}

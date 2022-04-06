@@ -11,13 +11,11 @@ interface Props {
 
 const ProductCard = ({ selected, product, onClick }: Props) => {
   const onCardClick = useCallback(() => {
-    if (!selected) {
-      onClick(product)
-    }
-  }, [onClick, product, selected])
+    onClick(product)
+  }, [onClick, product])
 
   return (
-    <S.Card selected={selected} onClick={onCardClick}>
+    <S.Card onClick={onCardClick}>
       <S.CardImageWrapper selected={selected}>
         {product.image}
       </S.CardImageWrapper>

@@ -6,9 +6,10 @@ export interface BasketProduct {
 }
 
 export interface BasketContext {
-  addToBasket: (product: Product, amount: number) => void
+  saveToBasket: (product: Product, amount: number) => void
   basketSum: number
   checkExistsInBasket: (product: Product) => boolean
+  getBasketProduct: (product: Product) => BasketProduct | undefined
   basketContent: BasketProduct[]
   isBasketEmpty: boolean
   clearBasket: () => void

@@ -6,30 +6,39 @@ import { BasketContext } from "./context"
 const BasketContextProvider: React.FC = ({ children }) => {
   const [basketProducts, setBasketProducts] = useState<BasketProduct[]>([])
 
-  const checkExistsInBasket = useCallback(
+  const getBasketProduct = useCallback(
     (product: Product) => {
-      return basketProducts.some(
+      return basketProducts.find(
         (basketProduct) => basketProduct.product.id === product.id
       )
     },
     [basketProducts]
   )
 
-  const addToBasket = useCallback((product: Product, amount: number) => {
-    setBasketProducts((prevBasketProducts) => {
-      const existsInBasket = prevBasketProducts.some(
-        (basketProduct) => basketProduct.product.id === product.id
-      )
+  const checkExistsInBasket = useCallback(
+    (product: Product) => {
+      return getBasketProduct(product) !== undefined
+    },
+    [getBasketProduct]
+  )
 
-      return existsInBasket
-        ? prevBasketProducts.map((basketProduct) =>
-            basketProduct.product.id === product.id
-              ? { ...basketProduct, amount: amount }
-              : basketProduct
-          )
-        : [...prevBasketProducts, { amount, product }]
-    })
-  }, [])
+  const saveToBasket = useCallback(
+    (product: Product, amount: number) => {
+      setBasketProducts((prevBasketProducts) => {
+        const existsInBasket = checkExistsInBasket(product)
+        const basketProductToSave = { amount, product }
+
+        return existsInBasket
+          ? prevBasketProducts.map((basketProduct) =>
+              basketProduct.product.id === product.id
+                ? basketProductToSave
+                : basketProduct
+            )
+          : [...prevBasketProducts, basketProductToSave]
+      })
+    },
+    [checkExistsInBasket]
+  )
 
   const basketSum = useMemo(() => {
     return basketProducts.reduce(
@@ -47,9 +56,10 @@ const BasketContextProvider: React.FC = ({ children }) => {
     basketContent: basketProducts,
     basketSum,
     isBasketEmpty: basketProducts.length < 1,
-    addToBasket,
+    saveToBasket,
     checkExistsInBasket,
     clearBasket,
+    getBasketProduct,
   }
 
   return (

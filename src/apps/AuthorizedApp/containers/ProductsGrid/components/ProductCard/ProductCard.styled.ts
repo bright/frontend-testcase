@@ -25,15 +25,13 @@ const CardTitle = styled.div`
   font-size: 14px;
 `
 
-const Card = styled.div<{ selected: boolean }>(
-  ({ selected }) => `
-  cursor: ${selected ? "default" : "pointer"};
+const Card = styled.div`
+  cursor: pointer;
   margin: 10px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-)
 
 export { Card, CardTitle, CardImageWrapper }
