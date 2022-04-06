@@ -29,7 +29,7 @@ const WalletIcon = styled.div`
 
 const Content = styled.div`
   height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 `
 
 export { AccountBalance, Content, LogoutButton, UserMenuWrapper, WalletIcon }
