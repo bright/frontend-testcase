@@ -10,7 +10,7 @@ const BasketPreview = () => {
   const { isBasketEmpty, basketContent } = useBasketContext()
 
   return (
-    <S.Container>
+    <S.Container aria-label="Purchase card">
       <S.Header>Purchase card</S.Header>
 
       <BalancePreview />

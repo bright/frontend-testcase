@@ -12,7 +12,7 @@ const BalancePreview = () => {
 
   return (
     <S.Container>
-      <S.BalanceValue>
+      <S.BalanceValue aria-label="Wallet balance">
         ₿ {user?.wallet.balance.toFixed(2) ?? 0.0}
       </S.BalanceValue>
 
@@ -20,7 +20,7 @@ const BalancePreview = () => {
         <S.BasketIcon>
           <BasketIcon />
         </S.BasketIcon>
-        <S.BalanceValue>₿ {basketSum.toFixed(2)}</S.BalanceValue>
+        <S.BalanceValue aria-label="Basket balance">₿ {basketSum.toFixed(2)}</S.BalanceValue>
       </S.BasketBalance>
     </S.Container>
   )

@@ -23,7 +23,7 @@ const ProductsGrid = ({ products }: Props) => {
   }, [])
 
   return (
-    <div>
+    <div aria-label="Purchase items">
       <h2>Select purchase items</h2>
       <S.Grid>
         {products.map((product) => (
